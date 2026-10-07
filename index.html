@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCare Space - พื้นที่ปลอดภัยเพื่อสุขภาพใจของคุณ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mint: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        sage: {
+                            50: '#f4f7f5',
+                            100: '#e3eae5',
+                            200: '#c7d6cd',
+                            300: '#a3bbb0',
+                            400: '#7f9c90',
+                            500: '#628175',
+                            600: '#4d685e',
+                        },
+                        skysoft: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                        },
+                        warmgray: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            700: '#44403c',
+                            800: '#292524',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #fafaf9;
+            color: #292524;
+        }
+
+        /* Breathing Circle Animation Styles */
+        .breath-circle {
+            transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1), background-color 4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .breath-inhale {
+            transform: scale(1.6);
+            background-color: #bae6fd; /* skysoft-200 */
+        }
+        
+        .breath-hold {
+            transform: scale(1.6);
+            background-color: #bbf7d0; /* mint-200 */
+        }
+        
+        .breath-exhale {
+            transform: scale(1.0);
+            background-color: #e0f2fe; /* skysoft-100 */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f5f4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7d6cd;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a3bbb0;
+        }
+    </style>
+</head>
+<body class="bg-warmgray-50 text-warmgray-800 antialiased selection:bg-mint-200 selection:text-mint-900 flex flex-col min-h-screen">
+
+    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-warmgray-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-mint-300 to-skysoft-300 flex items-center justify-center text-mint-800 shadow-sm">
+                        <i class="fa-solid fa-heart-pulse text-xl"></i>
+                    </div>
+                    <span class="text-xl font-semibold text-gray-800 tracking-tight">MindCare <span class="text-mint-600 font-normal">Space</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#hero" class="text-gray-600 hover:text-mint-600 transition font-medium">หน้าแรก</a>
+                    <a href="#disorders-hub" class="text-gray-600 hover:text-mint-600 transition font-medium">คลังความรู้โรคจิตเวช</a>
+                    <a href="#assessments" class="text-gray-600 hover:text-mint-600 transition font-medium">แบบประเมินสุขภาพจิต</a>
+                    <a href="#calming-tool" class="text-gray-600 hover:text-mint-600 transition font-medium">ฝึกหายใจคลายเครียด</a>
+                    <a href="#emergency" class="text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100 px-4 py-2 rounded-full font-medium transition duration-200 flex items-center gap-2">
+                        <i class="fa-solid fa-phone"></i> สายด่วนฉุกเฉิน
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none p-2 rounded-lg">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-3">
+            <a href="#hero" class="mobile-nav-link block px-3 py-2 rounded-md text-gray-700 hover:bg-mint-50 hover:text-mint-600">หน้าแรก</a>
+            <a href="#disorders-hub" class="mobile-nav-link block px-3 py-2 rounded-md text-gray-700 hover:bg-mint-50 hover:text-mint-600">คลังความรู้โรคจิตเวช</a>
+            <a href="#assessments" class="mobile-nav-link block px-3 py-2 rounded-md text-gray-700 hover:bg-mint-50 hover:text-mint-600">แบบประเมินสุขภาพจิต</a>
+            <a href="#calming-tool" class="mobile-nav-link block px-3 py-2 rounded-md text-gray-700 hover:bg-mint-50 hover:text-mint-600">ฝึกหายใจคลายเครียด</a>
+            <a href="#emergency" class="mobile-nav-link block px-3 py-2 rounded-md text-red-600 bg-red-50 font-medium">สายด่วนฉุกเฉิน 24 ชม.</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-skysoft-50 via-warmgray-50 to-mint-50/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto space-y-6">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-mint-200 shadow-sm text-mint-700 text-sm font-medium animate-float">
+                    <span class="w-2.5 h-2.5 rounded-full bg-mint-500 animate-ping"></span>
+                    คุณไม่ได้อยู่อย่างโดดเดี่ยว
+                </div>
+
+                <!-- Title -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 tracking-tight leading-tight">
+                    พื้นที่ปลอดภัยสำหรับ <span class="text-transparent bg-clip-text bg-gradient-to-r from-mint-600 to-skysoft-500">ใจของคุณ</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg sm:text-xl text-gray-600 leading-relaxed font-light">
+                    ยินดีต้อนรับสู่แหล่งเรียนรู้ ความเข้าใจ และประเมินสุขภาพจิตเบื้องต้น เพื่อให้คุณเข้าใจอารมณ์ความคิดของตัวเอง และก้าวผ่านช่วงเวลาที่ยากลำบากได้อย่างมั่นใจ
+                </p>
+
+                <!-- Call To Actions -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+                    <a href="#assessments" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-mint-500 hover:bg-mint-600 text-white font-medium shadow-lg shadow-mint-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-lg">
+                        <i class="fa-solid fa-clipboard-question"></i>
+                        เริ่มทำแบบประเมินสุขภาพจิต
+                    </a>
+                    <a href="tel:1323" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white hover:bg-gray-50 text-red-600 border border-red-200 font-medium shadow-sm transition-all flex items-center justify-center gap-2 text-lg">
+                        <i class="fa-solid fa-headset"></i>
+                        ปรึกษาสายด่วน 1323 (ฟรี)
+                    </a>
+                </div>
+
+                <!-- Quick Stats / Highlights -->
+                <div class="pt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-warmgray-200">
+                        <div class="text-2xl font-bold text-mint-700">100%</div>
+                        <div class="text-xs text-gray-500 mt-1">เป็นความลับและปลอดภัย</div>
+                    </div>
+                    <div class="p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-warmgray-200">
+                        <div class="text-2xl font-bold text-skysoft-500">24/7</div>
+                        <div class="text-xs text-gray-500 mt-1">เข้าถึงข้อมูลได้ตลอดเวลา</div>
+                    </div>
+                    <div class="p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-warmgray-200">
+                        <div class="text-2xl font-bold text-sage-600">Standard</div>
+                        <div class="text-xs text-gray-500 mt-1">ใช้แบบประเมิน PHQ-9 & GAD-7</div>
+                    </div>
+                    <div class="p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-warmgray-200">
+                        <div class="text-2xl font-bold text-purple-500">Free</div>
+                        <div class="text-xs text-gray-500 mt-1">ไม่มีค่าใช้จ่ายใดๆ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Subtle decorative blobs -->
+        <div class="absolute top-1/4 left-10 w-72 h-72 bg-mint-200/40 rounded-full filter blur-3xl -z-10 pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-skysoft-200/40 rounded-full filter blur-3xl -z-10 pointer-events-none"></div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-12 relative z-20">
+        <div class="bg-amber-50/90 border border-amber-200/80 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="flex-1 text-sm text-amber-900 leading-relaxed">
+                <strong class="font-semibold block sm:inline mb-1 sm:mb-0">ข้อความสำคัญ (Medical Disclaimer):</strong>
+                เว็บไซต์และแบบประเมินนี้จัดทำขึ้นเพื่อการให้ความรู้และการคัดกรองเบื้องต้นเท่านั้น <strong>ไม่สามารถใช้ทดแทนการวินิจฉัยทางการแพทย์ การประเมินทางจิตวิทยา หรือการรักษาจากแพทย์ผู้เชี่ยวชาญ/จิตแพทย์ได้</strong> หากท่านมีความคิดทำร้ายตนเองหรืออยู่ในภาวะฉุกเฉิน กรุณาติดต่อสายด่วนฉุกเฉินหรือพบแพทย์ทันที
+            </div>
+        </div>
+    </section>
+
+    <section id="disorders-hub" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <h2 class="text-3xl font-bold text-gray-800 tracking-tight">คลังความรู้โรคจิตเวช</h2>
+                <p class="text-gray-600 mt-2">ทำความเข้าใจอาการ สาเหตุ และแนวทางการดูแลตัวเองในแต่ละภาวะอย่างถูกต้อง</p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10" id="category-tabs">
+                <button onclick="filterDisorders('all')" class="tab-btn active border px-4 py-2 rounded-full text-sm font-medium transition bg-mint-500 text-white border-mint-500" data-category="all">
+                    ทั้งหมด
+                </button>
+                <button onclick="filterDisorders('mood')" class="tab-btn border px-4 py-2 rounded-full text-sm font-medium transition bg-white text-gray-600 border-gray-200 hover:bg-gray-50" data-category="mood">
+                    กลุ่มโรคอารมณ์
+                </button>
+                <button onclick="filterDisorders('anxiety')" class="tab-btn border px-4 py-2 rounded-full text-sm font-medium transition bg-white text-gray-600 border-gray-200 hover:bg-gray-50" data-category="anxiety">
+                    กลุ่มโรควิตกกังวลและแพนิก
+                </button>
+                <button onclick="filterDisorders('psychotic')" class="tab-btn border px-4 py-2 rounded-full text-sm font-medium transition bg-white text-gray-600 border-gray-200 hover:bg-gray-50" data-category="psychotic">
+                    กลุ่มโรคทางจิต
+                </button>
+                <button onclick="filterDisorders('ocd-stress')" class="tab-btn border px-4 py-2 rounded-full text-sm font-medium transition bg-white text-gray-600 border-gray-200 hover:bg-gray-50" data-category="ocd-stress">
+                    OCD & ความเครียด
+                </button>
+                <button onclick="filterDisorders('others')" class="tab-btn border px-4 py-2 rounded-full text-sm font-medium transition bg-white text-gray-600 border-gray-200 hover:bg-gray-50" data-category="others">
+                    กลุ่มอื่นๆ
+                </button>
+            </div>
+
+            <!-- Cards Grid Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="disorders-grid">
+                <!-- Cards will be populated via JavaScript dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <div id="disorder-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative transition-all">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Dynamic Content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <section id="assessments" class="py-16 bg-warmgray-50 border-t border-b border-warmgray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-mint-600 font-semibold text-sm tracking-wider uppercase">Interactive Screening</span>
+                <h2 class="text-3xl font-bold text-gray-800 tracking-tight mt-1">แบบประเมินสุขภาพจิตเบื้องต้น</h2>
+                <p class="text-gray-600 mt-2">เลือกแบบประเมินตามมาตรฐานสากลเพื่อประเมินสภาวะอารมณ์ของคุณในปัจจุบัน</p>
+            </div>
+
+            <!-- Selector Tabs for Tests -->
+            <div class="max-w-xl mx-auto bg-white p-1.5 rounded-2xl border border-gray-200 flex mb-8 shadow-sm">
+                <button onclick="switchTest('phq9')" id="tab-phq9" class="flex-1 py-3 px-4 rounded-xl font-medium text-sm transition bg-mint-500 text-white shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-face-sad-tear"></i> ประเมินโรคซึมเศร้า (PHQ-9)
+                </button>
+                <button onclick="switchTest('gad7')" id="tab-gad7" class="flex-1 py-3 px-4 rounded-xl font-medium text-sm transition text-gray-600 hover:text-gray-900 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bolt"></i> ประเมินโรควิตกกังวล (GAD-7)
+                </button>
+            </div>
+
+            <!-- Test Container -->
+            <div class="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-warmgray-200 shadow-sm" id="test-container">
+                <!-- Dynamic Questions Container -->
+                <div id="quiz-view">
+                    <div class="flex items-center justify-between border-b pb-4 mb-6">
+                        <div>
+                            <h3 id="test-title" class="text-xl font-bold text-gray-800">แบบประเมินภาวะซึมเศร้า PHQ-9</h3>
+                            <p id="test-instruction" class="text-xs text-gray-500 mt-1">ในช่วง 2 สัปดาห์ที่ผ่านมา รวมทั้งวันนี้ ท่านมีอาการเหล่านี้บ่อยแค่ไหน?</p>
+                        </div>
+                        <span id="question-progress" class="text-xs font-semibold px-3 py-1 bg-mint-100 text-mint-800 rounded-full">ข้อ 1 / 9</span>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-gray-100 h-2 rounded-full mb-8 overflow-hidden">
+                        <div id="progress-bar-inner" class="bg-mint-500 h-full w-0 transition-all duration-300"></div>
+                    </div>
+
+                    <!-- Question Content -->
+                    <div id="question-card" class="mb-8">
+                        <p id="question-text" class="text-lg font-medium text-gray-800 mb-6 min-h-[56px] flex items-center">กำลังโหลดคำถาม...</p>
+
+                        <div class="space-y-3" id="options-container">
+                            <!-- Options injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+                        <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition text-sm disabled:opacity-40 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> ข้อก่อนหน้า
+                        </button>
+                        <span class="text-xs text-gray-400">ตอบได้ตามความรู้สึกจริงของคุณ</span>
+                    </div>
+                </div>
+
+                <!-- Result View (Hidden by default) -->
+                <div id="result-view" class="hidden text-center py-4">
+                    <div class="w-20 h-20 rounded-full bg-mint-100 text-mint-600 mx-auto flex items-center justify-center text-3xl mb-4" id="result-icon">
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-1" id="result-title">ผลการประเมินเบื้องต้น</h3>
+                    <p class="text-xs text-gray-500 mb-6" id="result-subtitle">แบบประเมิน PHQ-9</p>
+
+                    <!-- Score Badge Box -->
+                    <div class="p-6 rounded-2xl bg-warmgray-50 border border-warmgray-200 max-w-md mx-auto mb-6">
+                        <div class="text-sm text-gray-500 mb-1">คะแนนรวมของคุณ</div>
+                        <div class="text-4xl font-extrabold text-mint-600 my-1" id="result-score">0 / 27</div>
+                        <div class="text-lg font-semibold mt-2" id="result-level">ระดับความเสี่ยง: -</div>
+                    </div>
+
+                    <!-- Description and Advice -->
+                    <div class="text-left bg-blue-50/60 border border-blue-100 p-5 rounded-2xl max-w-xl mx-auto mb-8 space-y-3 text-sm text-gray-700">
+                        <div class="font-semibold text-blue-900 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> คำแนะนำเบื้องต้น:
+                        </div>
+                        <p id="result-advice" class="leading-relaxed">...</p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col sm:flex-row justify-center gap-3">
+                        <button onclick="restartTest()" class="px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition text-sm">
+                            <i class="fa-solid fa-rotate-right mr-2"></i> ทำแบบประเมินอีกครั้ง
+                        </button>
+                        <a href="#emergency" class="px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-medium shadow-md transition text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-phone"></i> ดูช่องทางปรึกษาผู้เชี่ยวชาญ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calming-tool" class="py-16 bg-gradient-to-b from-white to-skysoft-50/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-xl mx-auto mb-8">
+                <span class="text-skysoft-500 font-semibold text-sm tracking-wider uppercase">Calming Exercise</span>
+                <h2 class="text-3xl font-bold text-gray-800 tracking-tight mt-1">ฝึกหายใจคลายเครียด & แพนิค</h2>
+                <p class="text-gray-600 mt-2 text-sm sm:text-base">เทคนิคการหายใจแบบ 4-7-8 ช่วยลดอัตราการเต้นของหัวใจ ผ่อนคลายระบบประสาท และบรรเทาอาการวิตกกังวลได้อย่างรวดเร็ว</p>
+            </div>
+
+            <!-- Breathing Animated Widget -->
+            <div class="bg-white rounded-3xl p-8 sm:p-12 border border-skysoft-100 shadow-md max-w-md mx-auto flex flex-col items-center">
+                <!-- Circle Visualizer Container -->
+                <div class="relative w-64 h-64 flex items-center justify-center my-6">
+                    <!-- Outer Guide Ring -->
+                    <div class="absolute inset-0 rounded-full border-2 border-dashed border-skysoft-200"></div>
+                    
+                    <!-- Animated Circle -->
+                    <div id="breath-circle" class="breath-circle w-36 h-36 rounded-full bg-skysoft-100 border-4 border-skysoft-300 flex flex-col items-center justify-center shadow-inner">
+                        <span id="breath-status" class="text-lg font-bold text-skysoft-700">พร้อม</span>
+                        <span id="breath-timer" class="text-xs text-skysoft-500 mt-1">กดเริ่ม</span>
+                    </div>
+                </div>
+
+                <!-- Instructions Indicator -->
+                <p id="breath-instruction" class="text-sm text-gray-500 min-h-[40px] mb-6">
+                    หาท่าทางที่สบาย ผ่อนคลายไหล่และกราม
+                </p>
+
+                <!-- Control Button -->
+                <button id="breath-start-btn" onclick="toggleBreathing()" class="w-full py-3.5 px-6 rounded-2xl bg-skysoft-500 hover:bg-skysoft-600 text-white font-medium shadow-md shadow-skysoft-500/20 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> เริ่มการฝึกหายใจ
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="emergency" class="py-16 bg-red-50/40 border-t border-red-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-red-500 font-semibold text-sm tracking-wider uppercase">Help & Hotlines</span>
+                <h2 class="text-3xl font-bold text-gray-800 tracking-tight mt-1">ศูนย์ช่วยเหลือและสายด่วนฉุกเฉิน</h2>
+                <p class="text-gray-600 mt-2">หากคุณหรือคนที่คุณรักต้องการเพื่อนคุยหรือความช่วยเหลือทางจิตเวชเร่งด่วน ติดต่อได้ตลอด 24 ชั่วโมง</p>
+            </div>
+
+            <!-- Hotline Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Hotline 1 -->
+                <div class="bg-white rounded-3xl p-6 border border-red-100 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-lg">สายด่วนสุขภาพจิต</h3>
+                                <p class="text-xs text-gray-500">กรมสุขภาพจิต กระทรวงสาธารณสุข</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-6">
+                            บริการให้คำปรึกษาปัญหาภาวะความเครียด ซึมเศร้า วิตกกังวล และปัญหาสุขภาพจิตทั่วไป โดยเจ้าหน้าที่ผู้เชี่ยวชาญ
+                        </p>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-emerald-600 mb-2 flex items-center gap-1">
+                            <i class="fa-solid fa-circle text-[8px]"></i> ฟรี โทรได้ตลอด 24 ชั่วโมง
+                        </div>
+                        <a href="tel:1323" class="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-center block transition shadow-sm">
+                            <i class="fa-solid fa-phone mr-2"></i> โทร 1323
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hotline 2 -->
+                <div class="bg-white rounded-3xl p-6 border border-red-100 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-lg">สมาคมสะมาริตันส์</h3>
+                                <p class="text-xs text-gray-500">Samaritans of Thailand</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-6">
+                            องค์กรป้องกันการฆ่าตัวตาย รับฟังด้วยความเข้าใจ ไม่ตัดสิน ไม่บันทึกเสียง และเก็บทุกอย่างเป็นความลับที่สุด
+                        </p>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-gray-500 mb-2 flex items-center gap-1">
+                            <i class="fa-solid fa-clock text-[10px]"></i> เปิดบริการ 12:00 - 22:00 น.
+                        </div>
+                        <a href="tel:021054745" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-center block transition shadow-sm">
+                            <i class="fa-solid fa-phone mr-2"></i> โทร 02-105-4745
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hotline 3 -->
+                <div class="bg-white rounded-3xl p-6 border border-red-100 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-truck-medical"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-lg">ศูนย์การแพทย์ฉุกเฉิน</h3>
+                                <p class="text-xs text-gray-500">เจ็บป่วยฉุกเฉินวิกฤต</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-6">
+                            สำหรับกรณีเกิดภาวะฉุกเฉินทางจิตเวช มีอาการคลุ้มคลั่ง ทำร้ายตัวเอง หรือผู้อื่นที่จำเป็นต้องได้รับการช่วยเหลือทันที
+                        </p>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-emerald-600 mb-2 flex items-center gap-1">
+                            <i class="fa-solid fa-circle text-[8px]"></i> ฟรี โทรได้ตลอด 24 ชั่วโมง
+                        </div>
+                        <a href="tel:1669" class="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-center block transition shadow-sm">
+                            <i class="fa-solid fa-phone mr-2"></i> โทร 1669
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-warmgray-800 text-warmgray-200 py-12 mt-auto border-t border-warmgray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 pb-8 border-b border-warmgray-700">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-mint-500 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <span class="text-xl font-semibold text-white tracking-tight">MindCare <span class="text-mint-400 font-normal">Space</span></span>
+                </div>
+                <p class="text-sm text-warmgray-400 text-center md:text-right">
+                    โอบรับทุกอารมณ์ความรู้สึก เพราะสุขภาพใจสำคัญไม่แพ้สุขภาพกาย
+                </p>
+            </div>
+            <div class="pt-8 text-center text-xs text-warmgray-400 space-y-2">
+                <p>&copy; 2026 MindCare Space. All Rights Reserved. จัดทำเพื่อประโยชน์ทางข้อมูลและการคัดกรองเบื้องต้นเท่านั้น</p>
+                <p class="text-warmgray-500">หากพบบุคคลที่มีความเสี่ยงทำร้ายตนเอง กรุณาติดต่อสายด่วนฉุกเฉินใกล้บ้านท่านทันที</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. DISORDERS HUB DATA ---
+        const disordersData = [
+            {
+                id: 'mdd',
+                category: 'mood',
+                categoryName: 'กลุ่มโรคอารมณ์',
+                title: 'โรคซึมเศร้า',
+                subtitle: 'Major Depressive Disorder (MDD)',
+                icon: 'fa-cloud-showers-heavy',
+                iconBg: 'bg-blue-100 text-blue-600',
+                symptoms: [
+                    'รู้สึกเศร้า ท้อแท้ หดหู่ หรือว่างเปล่า เกือบตลอดเวลาติดต่อกันเกิน 2 สัปดาห์',
+                    'หมดความสนใจหรือความเพลิดเพลินในกิจกรรมที่เคยชอบ',
+                    'เบื่ออาหาร น้ำหนักลด หรือรับประทานอาหารมากเกินไป',
+                    'นอนไม่หลับ หรือนอนมากผิดปกติ',
+                    'รู้สึกตนเองไร้ค่า ไร้พลัง หรือรู้สึกผิดอย่างรุนแรง'
+                ],
+                causes: 'เกิดจากความไม่สมดุลของสารเคมีในสมอง (เซโรโทนิน, โดปามีน) ร่วมกับปัจจัยทางพันธุกรรม และความเครียดสะสมจากสิ่งแวดล้อมหรือเหตุการณ์สะเทือนใจในชีวิต',
+                treatment: 'การรักษาใช้การรับประทานยาปรับสารเคมีในสมองตามแพทย์สั่ง ร่วมกับการทำจิตบำบัด (CBT) ปรับความคิดและพฤติกรรม',
+                urgency: 'ควรพบจิตแพทย์หากมีอาการต่อเนื่องเกิน 2 สัปดาห์ หรือมีความคิดไม่อยากมีชีวิตอยู่'
+            },
+            {
+                id: 'bipolar',
+                category: 'mood',
+                categoryName: 'กลุ่มโรคอารมณ์',
+                title: 'โรคอารมณ์สองขั้ว',
+                subtitle: 'Bipolar Disorder',
+                icon: 'fa-masks-theater',
+                iconBg: 'bg-indigo-100 text-indigo-600',
+                symptoms: [
+                    'ช่วงอารมณ์ดีผิดปกติ (Mania): พลังงานสูง นอนน้อย ไม่ง่วง พูดเร็ว ความคิดพรั่งพรู ใช้จ่ายฟุ่มเฟือย',
+                    'ช่วงอารมณ์ซึมเศร้า (Depression): เศร้า หมดพลัง เก็บตัว หมดความหวังในชีวิต',
+                    'อารมณ์เปลี่ยนแปลงอย่างเด่นชัดเป็นช่วงๆ'
+                ],
+                causes: 'ความผิดปกติในการทำงานของสมองและพันธุกรรมเป็นปัจจัยหลัก มีการเปลี่ยนแปลงของสารสื่อประสาท และอาจถูกกระตุ้นด้วยความเครียดหรือการอดนอน',
+                treatment: 'การใช้ยาปรับอารมณ์ให้คงที่ (Mood Stabilizers) ร่วมกับการดูแลสุขอนามัยการนอน และทำจิตบำบัด',
+                urgency: 'ควรพบแพทย์เมื่อเริ่มมีพฤติกรรมเสี่ยงอันตรายในช่วง Mania หรือมีภาวะซึมเศร้ารุนแรง'
+            },
+            {
+                id: 'panic',
+                category: 'anxiety',
+                categoryName: 'กลุ่มโรควิตกกังวลและแพนิก',
+                title: 'โรคแพนิก',
+                subtitle: 'Panic Disorder',
+                icon: 'fa-heart-crack',
+                iconBg: 'bg-red-100 text-red-600',
+                symptoms: [
+                    'หัวใจเต้นเร็ว สั่น หรือแน่นหน้าอกคล้ายหัวใจจะวาย',
+                    'หายใจไม่อิ่ม รู้สึกเหมือนกำลังจะจมน้ำหรือขาดอากาศหายใจ',
+                    'เวียนศีรษะ เหงื่อแตก มือเท้าชา',
+                    'หวาดกลัวอย่างรุนแรงว่าจะเสียชีวิต หรือควบคุมตัวเองไม่ได้ (กลัวความกลัว)'
+                ],
+                causes: 'เกิดจากระบบประสาทอัตโนมัติทำงานไวเกินตอบสนองต่อความเครียดผิดปกติ ทำให้ร่างกายเข้าสู่ภาวะ "สู้หรือหนี" โดยไม่มีอันตรายจริง',
+                treatment: 'การฝึกหายใจ (Breathing exercise), การทำจิตบำบัดปรับความคิด (CBT) และการใช้ยาคลายวิตกกังวลตามแพทย์สั่ง',
+                urgency: 'ควรตรวจร่างกายหาสาเหตุทางกายก่อน หากไม่พบความผิดปกติทางกายแต่มีอาการซ้ำๆ ควรปรึกษาจิตแพทย์'
+            },
+            {
+                id: 'gad',
+                category: 'anxiety',
+                categoryName: 'กลุ่มโรควิตกกังวลทั่วไป',
+                title: 'โรควิตกกังวลทั่วไป',
+                subtitle: 'Generalized Anxiety Disorder (GAD)',
+                icon: 'fa-brain',
+                iconBg: 'bg-amber-100 text-amber-600',
+                symptoms: [
+                    'กังวลเรื่องต่างๆ ในชีวิตประจำวันมากเกินไปติดต่อกันเกิน 6 เดือน',
+                    'ตึงเครียด กล้ามเนื้อเกร็ง ปวดหัว ปวดหลังง่าย',
+                    'กระสับกระส่าย กระวนกระวาย สมาธิตก',
+                    'เหนื่อยง่าย นอนหลับยากเนื่องจากหยุดคิดไม่ได้'
+                ],
+                causes: 'ปัจจัยทางพันธุกรรม สารเคมีในสมอง และบุคลิกภาพที่เป็นคนเจ้าระเบียบหรือมองโลกในแง่ร้าย ร่วมกับความเครียดเรื้อรัง',
+                treatment: 'ฝึกการผ่อนคลายกล้ามเนื้อ การทำสมาธิ จิตบำบัด และการรับประทานยาต้านความวิตกกังวล',
+                urgency: 'ควรพบแพทย์เมื่อความวิตกกังวลเริ่มกระทบการทำงาน การเรียน หรือความสัมพันธ์'
+            },
+            {
+                id: 'social-anxiety',
+                category: 'anxiety',
+                categoryName: 'กลุ่มโรควิตกกังวลและแพนิก',
+                title: 'โรคกลัวสังคม',
+                subtitle: 'Social Anxiety Disorder',
+                icon: 'fa-user-group',
+                iconBg: 'bg-teal-100 text-teal-600',
+                symptoms: [
+                    'กลัวการถูกจ้องมอง ถูกประเมิน หรือถูกตัดสินจากผู้อื่นอย่างรุนแรง',
+                    'พยายามหลีกเลี่ยงสถานการณ์ที่ต้องเจอคนแปลกหน้า หรือการพูดต่อหน้าสาธารณะ',
+                    'มีอาการทางกาย เช่น หน้าแดง ตัวสั่น เหงื่อตก ปากสั่นเมื่อต้องปฏิสัมพันธ์'
+                ],
+                causes: 'ประสบการณ์ทางสังคมที่เป็นลบในอดีต (โดนล้อเลียน/ให้อับอาย) ร่วมกับปัจจัยทางชีวภาพ',
+                treatment: 'การบำบัดด้วยการเผชิญหน้าทีละขั้น (Exposure Therapy) และปรับความคิด',
+                urgency: 'ควรพบแพทย์เมื่อการหลีกเลี่ยงเริ่มทำให้ไม่สามารถเรียนหรือทำงานได้ตามปกติ'
+            },
+            {
+                id: 'schizophrenia',
+                category: 'psychotic',
+                categoryName: 'กลุ่มโรคทางจิต',
+                title: 'โรคจิตเภท',
+                subtitle: 'Schizophrenia',
+                icon: 'fa-eye-slash',
+                iconBg: 'bg-purple-100 text-purple-600',
+                symptoms: [
+                    'หูแว่ว ได้ยินเสียงคนที่คนอื่นไม่ได้ยิน',
+                    'อาการหลงผิด เช่น เชื่อว่ามีคนคอยจ้องทำร้าย หรือคิดว่าตนเองถูกควบคุม',
+                    'ความคิดและการพูดไม่เป็นระบบ พูดไม่เชื่อมโยงกัน',
+                    'พฤติกรรมแปลกๆ แยกตัวจากสังคม ความรู้สึกเฉยชา'
+                ],
+                causes: 'ความผิดปกติในการทำงานของสารสื่อประสาทโดปามีนในสมองอย่างเด่นชัด มีปัจจัยทางพันธุกรรมสูง',
+                treatment: 'การรับประทานยาต้านโรคจิต (Antipsychotics) อย่างต่อเนื่องเป็นหลัก ร่วมกับการสนับสนุนทางสังคมและครอบครัว',
+                urgency: 'ควรรีบพบจิตแพทย์ทันทีเมื่อเริ่มมีอาการหูแว่วหรือหลงผิด เพื่อป้องกันอาการเรื้อรัง'
+            },
+            {
+                id: 'delusional',
+                category: 'psychotic',
+                categoryName: 'กลุ่มโรคทางจิต',
+                title: 'โรคหลงผิด',
+                subtitle: 'Delusional Disorder',
+                icon: 'fa-shield-halved',
+                iconBg: 'bg-rose-100 text-rose-600',
+                symptoms: [
+                    'มีความเชื่อปักใจที่ไม่ตรงกับความจริงอย่างน้อย 1 เดือน (เช่น เชื่อว่าถูกปองร้าย เชื่อว่าคู่สมรสไม่ซื่อสัตย์)',
+                    'บุคลิกภาพและการทำงานด้านอื่นยังคงดูเป็นปกติ ไม่หลุดจากความเป็นจริงเหมือนจิตเภท'
+                ],
+                causes: 'พันธุกรรม ความเครียดรุนแรง หรือปัจจัยทางจิตสังคม เช่น การถูกแยกให้อยู่คนเดียวนานๆ',
+                treatment: 'ใช้ยาต้านโรคจิตร่วมกับการทำจิตบำบัดสร้างความไว้วางใจ',
+                urgency: 'ควรพบจิตแพทย์เมื่อความเชื่อเริ่มส่งผลให้เกิดความขัดแย้งรุนแรงหรือมีพฤติกรรมก้าวร้าว'
+            },
+            {
+                id: 'ocd',
+                category: 'ocd-stress',
+                categoryName: 'OCD & ความเครียด',
+                title: 'โรคย้ำคิดย้ำทำ',
+                subtitle: 'Obsessive-Compulsive Disorder (OCD)',
+                icon: 'fa-rotate-right',
+                iconBg: 'bg-orange-100 text-orange-600',
+                symptoms: [
+                    'ความคิดย้ำๆ ที่เข้ามาในหัวโดยไม่ตั้งใจ ทำให้กังวล (เช่น กลัวเชื้อโรค กลัวลืมล็อกประตู)',
+                    'พฤติกรรมย้ำทำ เพื่อลดความวิตกกังวลนั้น (เช่น ล้างมือซ้ำๆ เช็กล็อกประตูหลายสิบรอบ)',
+                    'เสียเวลากับพฤติกรรมเหล่านี้เกิน 1 ชั่วโมงต่อวัน'
+                ],
+                causes: 'ความผิดปกติของวงจรประสาทระหว่างสมองส่วนหน้าและสมองส่วนลึก ร่วมกับสารเซโรโทนินบกพร่อง',
+                treatment: 'การทำจิตบำบัดประเภท ERP (Exposure and Response Prevention) และการใช้ยาต้านเศร้ากลุ่ม SSRIs',
+                urgency: 'ควรพบแพทย์เมื่อพฤติกรรมย้ำทำเริ่มรบกวนเวลาชีวิตประจำวันอย่างมาก'
+            },
+            {
+                id: 'ptsd',
+                category: 'ocd-stress',
+                categoryName: 'OCD & ความเครียด',
+                title: 'โรคเครียดหลังเหตุการณ์สะเทือนใจ',
+                subtitle: 'Post-Traumatic Stress Disorder (PTSD)',
+                icon: 'fa-burst',
+                iconBg: 'bg-red-100 text-red-600',
+                symptoms: [
+                    'เห็นภาพเหตุการณ์ร้ายแรงซ้ำๆ (Flashbacks) หรือฝันร้ายเกี่ยวกับเหตุการณ์นั้น',
+                    'พยายามหลีกเลี่ยงสถานที่ ผู้คน หรือสิ่งที่เตือนถึงเหตุการณ์',
+                    'สะดุ้งตกใจง่าย ตื่นตัวสูง รู้สึกเหมือนอันตรายจะเกิดขึ้นตลอดเวลา'
+                ],
+                causes: 'การเผชิญเหตุการณ์ที่คุกคามชีวิตรุนแรง เช่น อุบัติเหตุ อุบัติภัย หรือการถูกทำร้ายร่างกาย/จิตใจ',
+                treatment: 'การทำจิตบำบัดชำระบาดแผลทางใจ (EMDR หรือ Trauma-focused CBT) ร่วมกับการใช้ยา',
+                urgency: 'ควรพบจิตแพทย์หากมีอาการต่อเนื่องเกิน 1 เดือนหลังจากประสบเหตุการณ์'
+            },
+            {
+                id: 'eating',
+                category: 'others',
+                categoryName: 'กลุ่มอื่นๆ',
+                title: 'โรคการกินผิดปกติ',
+                subtitle: 'Eating Disorders (Anorexia / Bulimia)',
+                icon: 'fa-utensils',
+                iconBg: 'bg-pink-100 text-pink-600',
+                symptoms: [
+                    'กลัวการอ้วนอย่างรุนแรง มีค่านิยมเรื่องรูปร่างผิดปกติ',
+                    'อดอาหารอย่างหนักจนน้ำหนักต่ำกว่าเกณฑ์มาก (Anorexia)',
+                    'ทานอาหารปริมาณมากในเวลาสั้นๆ แล้วพยายามล้วงคออ้วก หรือใช้ยาระบาย (Bulimia)'
+                ],
+                causes: 'ผสมผสานระหว่างปัจจัยทางชีวภาพ ค่านิยมสังคม ปัญหาด้านอารมณ์และการควบคุมตนเอง',
+                treatment: 'โภชนาการบำบัด การปรับค่านิยมความคิด และจิตบำบัดครอบครัว',
+                urgency: 'ควรพบแพทย์ทันทีเมื่อน้ำหนักลดลงรวดเร็ว ร่างกายอ่อนเพลีย หรือมีภาวะเกลือแร่ในเลือดผิดปกติ'
+            },
+            {
+                id: 'insomnia',
+                category: 'others',
+                categoryName: 'กลุ่มอื่นๆ',
+                title: 'โรคนอนไม่หลับเรื้อรัง',
+                subtitle: 'Chronic Insomnia',
+                icon: 'fa-moon',
+                iconBg: 'bg-sky-100 text-sky-600',
+                symptoms: [
+                    'นอนหลับยาก ใช้เวลานานกว่าจะหลับ หรือตื่นกลางดึกบ่อยๆ',
+                    'ตื่นเช้าเกินไปแล้วนอนต่อไม่ได้',
+                    'เกิดอาการติดต่อกันอย่างน้อย 3 คืนต่อสัปดาห์ เป็นเวลานานเกิน 3 เดือน',
+                    'ส่งผลกระทบต่อสมาธิและการทำงานในวันถัดไป'
+                ],
+                causes: 'ความเครียดสะสม พฤติกรรมการนอนที่ไม่เหมาะสม (Sleep Hygiene) หรือสารเคมีในสมองผิดปกติ',
+                treatment: 'การบำบัดปรับความคิดและพฤติกรรมการนอน (CBT-I) ซึ่งเป็นมาตรฐานหลักก่อนการใช้ยา',
+                urgency: 'ควรพบแพทย์เมื่อกระทบประสิทธิภาพการทำงาน ร่างกายอ่อนเพลียสะสม'
+            },
+            {
+                id: 'adhd',
+                category: 'others',
+                categoryName: 'กลุ่มอื่นๆ',
+                title: 'สมาธิสั้นในผู้ใหญ่',
+                subtitle: 'Adult ADHD',
+                icon: 'fa-bolt-lightning',
+                iconBg: 'bg-emerald-100 text-emerald-600',
+                symptoms: [
+                    'วอกแวกง่าย ขาดสมาธิต่อเนื่อง ทำงานไม่เสร็จตามกำหนด',
+                    'ผลัดวันประกันพรวด จัดลำดับความสำคัญของงานลำบาก',
+                    'ขี้ลืม ของหายบ่อย วางแผนเวลาไม่ถูก',
+                    'หงุดหงิดง่าย หุนหันพลันแล่น'
+                ],
+                causes: 'ปัจจัยทางพันธุกรรม ร่วมกับความบกพร่องของสารโดปามีนในสมองส่วนหน้า',
+                treatment: 'การใช้ยากลุ่มกระตุ้นระบบประสาทตามแพทย์สั่ง และการฝึกทักษะการจัดการเวลาและสิ่งแวดล้อม',
+                urgency: 'ควรพบแพทย์หากกระทบหน้าที่การงานอย่างรุนแรง หรือมีปัญหาความสัมพันธ์เรื้อรัง'
+            }
+        ];
+
+        // --- 2. TESTS DATA (PHQ-9 & GAD-7) ---
+        const testsData = {
+            phq9: {
+                title: 'แบบประเมินภาวะซึมเศร้า (PHQ-9)',
+                instruction: 'ในช่วง 2 สัปดาห์ที่ผ่านมา รวมทั้งวันนี้ ท่านมีอาการเหล่านี้บ่อยแค่ไหน?',
+                options: [
+                    { text: 'ไม่มีเลย', score: 0 },
+                    { text: 'มีบางวัน (1-7 วัน)', score: 1 },
+                    { text: 'มีบ่อย (มากกว่า 7 วัน)', score: 2 },
+                    { text: 'มีทุกวัน หรือเกือบทุกวัน', score: 3 }
+                ],
+                questions: [
+                    'เบื่อ ทำอะไรๆ ก็ไม่เพลิดเพลิน',
+                    'ไม่สบายใจ ซึมเศร้า หรือท้อแท้',
+                    'หลับยาก หรือหลับๆ ตื่นๆ หรือหลับมากเกินไป',
+                    'เหนื่อยง่าย หรือไม่ค่อยมีแรง',
+                    'เบื่ออาหาร หรือกินมากเกินไป',
+                    'รู้สึกไม่ดีกับตัวเอง คิดว่าตัวเองล้มเหลว หรือทำให้ตนเองหรือครอบครัวผิดหวัง',
+                    'สมาธิไม่ดีเวลาทำอะไร เช่น ดูโทรทัศน์ ฟังวิทยุ หรือทำงานที่ต้องใช้ความตั้งใจ',
+                    'พูดหรือทำอะไรช้าจนคนอื่นสังเกตเห็นได้ หรือกระสับกระส่ายจนอยู่นิ่งไม่ได้',
+                    'คิดทำร้ายตนเอง หรือคิดว่าถ้าตายๆ ไปเสียคงจะดี'
+                ],
+                evaluate: function(score) {
+                    if (score <= 4) {
+                        return {
+                            level: 'ไม่มีภาวะซึมเศร้า หรือมีน้อยมาก',
+                            color: 'text-emerald-600',
+                            advice: 'ท่านอยู่ในเกณฑ์ปกติ ควรดูแลสุขภาพจิตด้วยการนอนหลับให้เพียงพอ ออกกำลังกาย และทำกิจกรรมผ่อนคลายอย่างสม่ำเสมอ'
+                        };
+                    } else if (score <= 9) {
+                        return {
+                            level: 'ภาวะซึมเศร้าระดับเล็กน้อย',
+                            color: 'text-amber-600',
+                            advice: 'อาจมีความเครียดหรืออารมณ์เศร้าสะสม ควรสังเกตอารมณ์ตนเอง ทำกิจกรรมที่ช่วยให้ผ่อนคลาย หรือพูดคุยปรับสารทุเลากับคนที่ไว้วางใจ'
+                        };
+                    } else if (score <= 14) {
+                        return {
+                            level: 'ภาวะซึมเศร้าระดับปานกลาง',
+                            color: 'text-orange-600',
+                            advice: 'แนะนำให้ปรึกษาบุคลากรทางการแพทย์ จิตแพทย์ หรือโทรสายด่วนสุขภาพจิต 1323 เพื่อขอคำแนะนำในการดูแลตนเองเพิ่มเติม'
+                        };
+                    } else if (score <= 19) {
+                        return {
+                            level: 'ภาวะซึมเศร้าระดับรุนแรงค่อนข้างมาก',
+                            color: 'text-rose-600',
+                            advice: 'ควรพบจิตแพทย์เพื่อได้รับการประเมินและการรักษาอย่างถูกต้องโดยเร็ว'
+                        };
+                    } else {
+                        return {
+                            level: 'ภาวะซึมเศร้าระดับรุนแรงมาก',
+                            color: 'text-red-700',
+                            advice: 'ควรรีบพบจิตแพทย์เพื่อรับการรักษาทันที หรือติดต่อสายด่วนฉุกเฉินใกล้บ้านท่าน'
+                        };
+                    }
+                }
+            },
+            gad7: {
+                title: 'แบบประเมินภาวะวิตกกังวล (GAD-7)',
+                instruction: 'ในช่วง 2 สัปดาห์ที่ผ่านมา รวมทั้งวันนี้ ท่านมีอาการเหล่านี้บ่อยแค่ไหน?',
+                options: [
+                    { text: 'ไม่มีเลย', score: 0 },
+                    { text: 'มีบางวัน', score: 1 },
+                    { text: 'มีมากกว่าครึ่งหนึ่งของจำนวนวัน', score: 2 },
+                    { text: 'มีเกือบทุกวัน', score: 3 }
+                ],
+                questions: [
+                    'รู้สึกเครียด วิตกกังวล หรือกังวลจนเกร็ง',
+                    'ไม่สามารถหยุดคิดหรือควบคุมความวิตกกังวลได้',
+                    'กังวลมากเกินไปเกี่ยวกับเรื่องต่างๆ',
+                    'ทำตัวผ่อนคลายได้ยาก',
+                    'รู้สึกกระสับกระส่ายจนนั่งไม่ติด',
+                    'กลายเป็นคนหงุดหงิดง่าย',
+                    'รู้สึกกลัวเหมือนกับว่าจะเกิดเรื่องร้ายแรงขึ้น'
+                ],
+                evaluate: function(score) {
+                    if (score <= 4) {
+                        return {
+                            level: 'ความวิตกกังวลระดับต่ำ (ปกติ)',
+                            color: 'text-emerald-600',
+                            advice: 'ท่านมีความวิตกกังวลในระดับปกติทั่วไป ให้หมั่นฝึกการผ่อนคลายและการดูแลสุขภาพกายใจให้ดี'
+                        };
+                    } else if (score <= 9) {
+                        return {
+                            level: 'ความวิตกกังวลระดับปานกลาง',
+                            color: 'text-amber-600',
+                            advice: 'เริ่มมีความวิตกกังวลรบกวนชีวิต ควรฝึกการหายใจ ฝึกสมาธิ และแบ่งเวลาพักผ่อนให้เพียงพอ'
+                        };
+                    } else if (score <= 14) {
+                        return {
+                            level: 'ความวิตกกังวลระดับสูง',
+                            color: 'text-orange-600',
+                            advice: 'ความวิตกกังวลเริ่มกระทบการทำงานและชีวิตประจำวัน แนะนำให้ปรึกษาจิตแพทย์หรือนักจิตวิทยาบำบัด'
+                        };
+                    } else {
+                        return {
+                            level: 'ความวิตกกังวลระดับรุนแรง',
+                            color: 'text-red-600',
+                            advice: 'ควรพบจิตแพทย์เพื่อได้รับการประเมินอย่างละเอียดและการดูแลรักษาที่เหมาะสม'
+                        };
+                    }
+                }
+            }
+        };
+
+        // --- 3. STATE MANAGEMENT ---
+        let currentTestKey = 'phq9';
+        let currentQuestionIdx = 0;
+        let userAnswers = [];
+
+        // --- STREAMING_CHUNK: DOM Render Functions for Disorders Hub ---
+        function renderDisorders(category = 'all') {
+            const grid = document.getElementById('disorders-grid');
+            grid.innerHTML = '';
+
+            const filteredData = category === 'all' 
+                ? disordersData 
+                : disordersData.filter(item => item.category === category);
+
+            filteredData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-3xl p-6 border border-warmgray-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl ${item.iconBg} flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-medium text-gray-400 uppercase tracking-wider">${item.categoryName}</span>
+                                <h3 class="font-bold text-gray-800 text-lg leading-tight">${item.title}</h3>
+                            </div>
+                        </div>
+                        <p class="text-xs text-mint-700 font-medium mb-3">${item.subtitle}</p>
+                        <p class="text-xs text-gray-600 line-clamp-3 leading-relaxed mb-4">
+                            ${item.symptoms[0]} และ ${item.symptoms[1]}
+                        </p>
+                    </div>
+                    <button onclick="openModal('${item.id}')" class="w-full py-2.5 rounded-xl bg-warmgray-100 hover:bg-mint-50 text-gray-700 hover:text-mint-700 font-medium text-xs transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-info"></i> อ่านข้อมูลเพิ่มเติม
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterDisorders(category) {
+            // Update button styles
+            document.querySelectorAll('#category-tabs .tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = 'tab-btn active border px-4 py-2 rounded-full text-sm font-medium transition bg-mint-500 text-white border-mint-500';
+                } else {
+                    btn.className = 'tab-btn border px-4 py-2 rounded-full text-sm font-medium transition bg-white text-gray-600 border-gray-200 hover:bg-gray-50';
+                }
+            });
+            renderDisorders(category);
+        }
+
+        function openModal(id) {
+            const disorder = disordersData.find(item => item.id === id);
+            if (!disorder) return;
+
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="flex items-center gap-4 mb-6 border-b pb-4">
+                    <div class="w-14 h-14 rounded-2xl ${disorder.iconBg} flex items-center justify-center text-2xl shrink-0">
+                        <i class="fa-solid ${disorder.icon}"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-mint-600 tracking-wider">${disorder.categoryName}</span>
+                        <h3 class="text-2xl font-bold text-gray-800">${disorder.title}</h3>
+                        <p class="text-sm text-gray-500">${disorder.subtitle}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 text-sm text-gray-700">
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-notes-medical text-mint-600"></i> อาการสำคัญ (Key Symptoms)
+                        </h4>
+                        <ul class="list-disc list-inside space-y-1 pl-2 text-gray-600">
+                            ${disorder.symptoms.map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-microscope text-skysoft-500"></i> สาเหตุและปัจจัยกระตุ้น
+                        </h4>
+                        <p class="leading-relaxed text-gray-600 pl-2">${disorder.causes}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-heart-pulse text-sage-600"></i> แนวทางการดูแล/รักษาเบื้องต้น
+                        </h4>
+                        <p class="leading-relaxed text-gray-600 pl-2">${disorder.treatment}</p>
+                    </div>
+
+                    <div class="bg-red-50 border border-red-100 p-4 rounded-2xl">
+                        <h4 class="font-bold text-red-800 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-red-500"></i> ข้อแนะนำในการพบแพทย์
+                        </h4>
+                        <p class="text-xs text-red-700 leading-relaxed">${disorder.urgency}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('disorder-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('disorder-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- STREAMING_CHUNK: Assessment Test Logic Functions ---
+        function switchTest(testKey) {
+            currentTestKey = testKey;
+            currentQuestionIdx = 0;
+            const currentTest = testsData[currentTestKey];
+            userAnswers = new Array(currentTest.questions.length).fill(null);
+
+            // Tab styling
+            const btnPhq9 = document.getElementById('tab-phq9');
+            const btnGad7 = document.getElementById('tab-gad7');
+            if (testKey === 'phq9') {
+                btnPhq9.className = 'flex-1 py-3 px-4 rounded-xl font-medium text-sm transition bg-mint-500 text-white shadow-sm flex items-center justify-center gap-2';
+                btnGad7.className = 'flex-1 py-3 px-4 rounded-xl font-medium text-sm transition text-gray-600 hover:text-gray-900 flex items-center justify-center gap-2';
+            } else {
+                btnGad7.className = 'flex-1 py-3 px-4 rounded-xl font-medium text-sm transition bg-mint-500 text-white shadow-sm flex items-center justify-center gap-2';
+                btnPhq9.className = 'flex-1 py-3 px-4 rounded-xl font-medium text-sm transition text-gray-600 hover:text-gray-900 flex items-center justify-center gap-2';
+            }
+
+            document.getElementById('test-title').innerText = currentTest.title;
+            document.getElementById('test-instruction').innerText = currentTest.instruction;
+
+            document.getElementById('quiz-view').classList.remove('hidden');
+            document.getElementById('result-view').classList.add('hidden');
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const currentTest = testsData[currentTestKey];
+            const total = currentTest.questions.length;
+
+            document.getElementById('question-progress').innerText = `ข้อ ${currentQuestionIdx + 1} / ${total}`;
+            document.getElementById('progress-bar-inner').style.width = `${((currentQuestionIdx + 1) / total) * 100}%`;
+            document.getElementById('question-text').innerText = `${currentQuestionIdx + 1}. ${currentTest.questions[currentQuestionIdx]}`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            currentTest.options.forEach(opt => {
+                const btn = document.createElement('button');
+                const isSelected = userAnswers[currentQuestionIdx] === opt.score;
+                
+                btn.className = `w-full p-4 rounded-2xl border text-left font-medium text-sm transition flex items-center justify-between ${
+                    isSelected 
+                        ? 'border-mint-500 bg-mint-50/80 text-mint-900 ring-2 ring-mint-400/30' 
+                        : 'border-warmgray-200 hover:bg-warmgray-50 text-gray-700'
+                }`;
+                
+                btn.innerHTML = `
+                    <span>${opt.text}</span>
+                    <span class="w-5 h-5 rounded-full border flex items-center justify-center text-xs ${isSelected ? 'bg-mint-500 border-mint-500 text-white' : 'border-gray-300'}">
+                        ${isSelected ? '<i class="fa-solid fa-check"></i>' : ''}
+                    </span>
+                `;
+                btn.onclick = () => selectOption(opt.score);
+                optionsContainer.appendChild(btn);
+            });
+
+            document.getElementById('prev-btn').disabled = currentQuestionIdx === 0;
+        }
+
+        function selectOption(score) {
+            userAnswers[currentQuestionIdx] = score;
+            const currentTest = testsData[currentTestKey];
+
+            if (currentQuestionIdx < currentTest.questions.length - 1) {
+                currentQuestionIdx++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIdx > 0) {
+                currentQuestionIdx--;
+                renderQuestion();
+            }
+        }
+
+        function showResults() {
+            const currentTest = testsData[currentTestKey];
+            const totalScore = userAnswers.reduce((sum, val) => sum + (val || 0), 0);
+            const maxScore = currentTest.questions.length * 3;
+            const resultData = currentTest.evaluate(totalScore);
+
+            document.getElementById('quiz-view').classList.add('hidden');
+            document.getElementById('result-view').classList.remove('hidden');
+
+            document.getElementById('result-subtitle').innerText = currentTest.title;
+            document.getElementById('result-score').innerText = `${totalScore} / ${maxScore}`;
+            
+            const levelEl = document.getElementById('result-level');
+            levelEl.innerText = `ระดับความเสี่ยง: ${resultData.level}`;
+            levelEl.className = `text-lg font-semibold mt-2 ${resultData.color}`;
+
+            document.getElementById('result-advice').innerText = resultData.advice;
+        }
+
+        function restartTest() {
+            switchTest(currentTestKey);
+        }
+
+        // --- STREAMING_CHUNK: Breathing Animation Logic (4-7-8 Technique) ---
+        let breathInterval = null;
+        let isBreathingActive = false;
+
+        function toggleBreathing() {
+            const btn = document.getElementById('breath-start-btn');
+            if (isBreathingActive) {
+                stopBreathing();
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> เริ่มการฝึกหายใจ';
+                btn.className = 'w-full py-3.5 px-6 rounded-2xl bg-skysoft-500 hover:bg-skysoft-600 text-white font-medium shadow-md shadow-skysoft-500/20 transition flex items-center justify-center gap-2';
+            } else {
+                startBreathing();
+                btn.innerHTML = '<i class="fa-solid fa-stop"></i> หยุดการฝึก';
+                btn.className = 'w-full py-3.5 px-6 rounded-2xl bg-warmgray-700 hover:bg-warmgray-800 text-white font-medium shadow-md transition flex items-center justify-center gap-2';
+            }
+        }
+
+        function startBreathing() {
+            isBreathingActive = true;
+            runBreathingCycle();
+        }
+
+        function stopBreathing() {
+            isBreathingActive = false;
+            clearTimeout(breathInterval);
+            const circle = document.getElementById('breath-circle');
+            const status = document.getElementById('breath-status');
+            const timer = document.getElementById('breath-timer');
+            const instruction = document.getElementById('breath-instruction');
+
+            circle.className = 'breath-circle w-36 h-36 rounded-full bg-skysoft-100 border-4 border-skysoft-300 flex flex-col items-center justify-center shadow-inner';
+            status.innerText = 'พร้อม';
+            timer.innerText = 'กดเริ่ม';
+            instruction.innerText = 'หาท่าทางที่สบาย ผ่อนคลายไหล่และกราม';
+        }
+
+        function runBreathingCycle() {
+            if (!isBreathingActive) return;
+
+            const circle = document.getElementById('breath-circle');
+            const status = document.getElementById('breath-status');
+            const timer = document.getElementById('breath-timer');
+            const instruction = document.getElementById('breath-instruction');
+
+            // Phase 1: Inhale (4s)
+            circle.className = 'breath-circle breath-inhale w-36 h-36 rounded-full border-4 border-skysoft-400 flex flex-col items-center justify-center shadow-lg';
+            status.innerText = 'หายใจเข้า';
+            instruction.innerText = 'หายใจเข้าช้าๆ ทางจมูก ลึกถึงหน้าท้อง...';
+            
+            let count = 4;
+            timer.innerText = count;
+            let countdown = setInterval(() => {
+                count--;
+                if (count > 0 && isBreathingActive) timer.innerText = count;
+                else clearInterval(countdown);
+            }, 1000);
+
+            // Phase 2: Hold (7s)
+            breathInterval = setTimeout(() => {
+                if (!isBreathingActive) return;
+                circle.className = 'breath-circle breath-hold w-36 h-36 rounded-full border-4 border-mint-400 flex flex-col items-center justify-center shadow-lg';
+                status.innerText = 'กลั้นหายใจ';
+                instruction.innerText = 'กลั้นลมหายใจไว้อย่างผ่อนคลาย...';
+                
+                count = 7;
+                timer.innerText = count;
+                countdown = setInterval(() => {
+                    count--;
+                    if (count > 0 && isBreathingActive) timer.innerText = count;
+                    else clearInterval(countdown);
+                }, 1000);
+
+                // Phase 3: Exhale (8s)
+                breathInterval = setTimeout(() => {
+                    if (!isBreathingActive) return;
+                    circle.className = 'breath-circle breath-exhale w-36 h-36 rounded-full border-4 border-skysoft-300 flex flex-col items-center justify-center shadow-inner';
+                    status.innerText = 'ผ่อนลมหายใจ';
+                    instruction.innerText = 'ค่อยๆ ผ่อนลมหายใจออกทางปากช้าๆ จนหมด...';
+                    
+                    count = 8;
+                    timer.innerText = count;
+                    countdown = setInterval(() => {
+                        count--;
+                        if (count > 0 && isBreathingActive) timer.innerText = count;
+                        else clearInterval(countdown);
+                    }, 1000);
+
+                    // Loop cycle
+                    breathInterval = setTimeout(() => {
+                        if (isBreathingActive) runBreathingCycle();
+                    }, 8000);
+
+                }, 7000);
+
+            }, 4000);
+        }
+
+        // --- STREAMING_CHUNK: Initializer and Event Listeners ---
+        window.onload = function() {
+            renderDisorders('all');
+            switchTest('phq9');
+
+            // Mobile menu toggle logic
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        };
+    </script>
+</body>
+</html>
